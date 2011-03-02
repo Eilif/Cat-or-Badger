@@ -4,14 +4,14 @@ class AnimalsController < ActionController::Base
     @animal = Animal.new
   end
 
-#  def create
- #   @animal = Animal.new(params[:animal])
-  #  if @animal.save
-   #   redirect_to root_path
-#    else
- #     render :action => :new
-  #  end
-#  end
+  def create
+    @animal = Animal.new(params[:animal])
+    if @animal.save
+      redirect_to root_path
+    else
+      render :action => :new
+    end
+  end
 
 #  def destroy
  #   @animal = Animal.find(params[:id])
