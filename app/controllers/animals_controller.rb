@@ -33,9 +33,9 @@ class AnimalsController < ActionController::Base
   #  end
 #  end
 
-#  def index
- #   @animal = Animal.all :order => 'id DESC'
-  #end
+  def index
+    @animals = Animal.all :order => 'id DESC'
+  end
 
 #  def show
  #   @animal = Animal.find(params[:id])

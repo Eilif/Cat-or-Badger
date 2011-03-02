@@ -44,4 +44,21 @@ describe AnimalsController do
 
   end
 
+  describe "get index" do
+
+    before :each do
+      5.times{ Animal.create(:name => "Eustace") }
+      get :index
+    end
+
+    it 'should respond with success' do
+      response.should be_success
+    end
+
+    it 'should assign all animals to @animals' do
+      assigns(:animals).should eq(Animal.all.reverse)
+    end
+
+  end
+
 end
