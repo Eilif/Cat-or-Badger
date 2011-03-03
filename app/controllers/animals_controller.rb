@@ -1,4 +1,4 @@
-class AnimalsController < ActionController::Base
+class AnimalsController < ApplicationController
 
   def new
     @animal = Animal.new
@@ -19,9 +19,9 @@ class AnimalsController < ActionController::Base
    # redirect_to root_path
 #  end
 
-#  def edit
- #   @animal = Animal.find(params[:id])
-  #end
+  def edit
+    @animal = Animal.find(params[:id])
+  end
 
 #  def update
  #   @animal = Animal.find(params[:id])

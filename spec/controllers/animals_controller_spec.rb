@@ -61,4 +61,22 @@ describe AnimalsController do
 
   end
 
+  describe "get edit" do
+
+    before(:each) do 
+      post :create, :animal => { :name => "Ashley" }
+      a = Animal.last
+      get :edit, :id => a.to_param
+    end
+
+    it 'should respond with success' do
+      response.should be_success
+    end
+
+    it 'should assign correct animal to @animal' do
+      assigns(:animal).should eq(Animal.last)
+    end
+
+  end
+
 end

@@ -1,6 +1,6 @@
 CatOrBadger::Application.routes.draw do
 
-  root :to => 'animal#index'
+  root :to => 'animals#index'
 
   resources :animals
 
