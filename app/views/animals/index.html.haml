@@ -3,5 +3,5 @@
 
 - @animals.each do |animal|
   .transbox
-    %h2= animal.name
+    %h2= link_to animal.name, animal_path(animal)
    
