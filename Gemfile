@@ -9,6 +9,8 @@ gem 'sqlite3'
 
 gem 'haml'
 
+gem "paperclip", "~> 2.3"
+
 group :test do
   gem 'leftright'
 end

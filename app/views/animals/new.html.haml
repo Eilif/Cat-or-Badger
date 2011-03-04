@@ -1,4 +1,5 @@
-= form_for @animal do |form|
+= form_for @animal, :html => { :multipart => true } do |form|
   = form.label :name
   = form.text_field :name
+  = form.file_field :image
   = form.submit "create animal"

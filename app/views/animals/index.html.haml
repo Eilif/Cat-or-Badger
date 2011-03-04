@@ -4,4 +4,5 @@
 - @animals.each do |animal|
   .transbox
     %h2= link_to animal.name, animal_path(animal)
+    %div= image_tag animal.image.url(:thumb)
    

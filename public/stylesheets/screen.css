@@ -15,7 +15,8 @@ a {
 }
 
 div.transbox {
-  width: 25%;
+  float: left;
+  clear: left;
   margin: 20px;
   border-style: solid;
   border-color: rgba(255, 255, 255, 0.3);
