@@ -18,7 +18,11 @@ describe AnimalsController do
 
   describe "post to create with valid animal attributes" do
 
-    before(:each) { post :create, :animal => { :name => "Terrence" } }
+    before(:each) do
+      @test_image = Rails.root + "spec/fixtures/images/seagull.jpg"
+      @file = Rack::Test::UploadedFile.new(@test_image, "image/jpeg")
+      post :create, :animal => { :name => "Terrence", :image => @file }
+    end
 
     it 'should redirect to root path' do
       response.should redirect_to(root_path)
@@ -26,6 +30,7 @@ describe AnimalsController do
 
     it 'should create an animal' do
       Animal.last.name.should eq("Terrence")
+      Animal.last.image.original_filename.should eq("seagull.jpg")
     end
 
     it 'should assign an animal to @animal' do
@@ -47,7 +52,7 @@ describe AnimalsController do
   describe "get index" do
 
     before :each do
-      5.times{ Animal.create(:name => "Eustace") }
+      5.times{ Animal.create(:name => "Eustace", :image => File.new(Rails.root + 'spec/fixtures/images/seagull.jpg')) }
       get :index
     end
 
@@ -64,7 +69,7 @@ describe AnimalsController do
   describe "get edit" do
 
     before(:each) do
-      @a = Animal.create(:name => "Ashley")
+      @a = Animal.create(:name => "Ashley", :image => File.new(Rails.root + 'spec/fixtures/images/seagull.jpg'))
       get :edit, :id => @a.to_param
     end
 
@@ -81,7 +86,7 @@ describe AnimalsController do
   describe "post to update with valid input" do
 
     before(:each) do
-      @a = Animal.create(:name => "Abstacia")
+      @a = Animal.create(:name => "Abstacia", :image => File.new(Rails.root + 'spec/fixtures/images/seagull.jpg'))
       put :update, :id => @a.to_param, :animal => { :name => "Toquilda" }
     end
 
@@ -98,7 +103,7 @@ describe AnimalsController do
   describe "put to update with invalid input" do
 
     before(:each) do
-      @a = Animal.create(:name => "Abstacia")
+      @a = Animal.create(:name => "Abstacia", :image => File.new(Rails.root + 'spec/fixtures/images/seagull.jpg'))
       put :update, :id => @a.to_param, :animal => { :name => "" }
     end
 
@@ -111,7 +116,7 @@ describe AnimalsController do
   describe "get show" do
 
     before(:each) do
-      @a = Animal.create(:name => "Chorrecht")
+      @a = Animal.create(:name => "Chorrecht", :image => File.new(Rails.root + 'spec/fixtures/images/seagull.jpg'))
       get :show, :id => @a.to_param
     end
 
@@ -128,7 +133,7 @@ describe AnimalsController do
   describe "delete to destroy" do
 
     before(:each) do
-      @a = Animal.create(:name => "Laguther")
+      @a = Animal.create(:name => "Laguther", :image => File.new(Rails.root + 'spec/fixtures/images/seagull.jpg'))
       delete :destroy, :id => @a.to_param
     end
 
