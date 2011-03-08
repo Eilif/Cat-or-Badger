@@ -1,6 +1,10 @@
 CatOrBadger::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
+  PAPERCLIP_STORAGE_OPTIONS = {:storage => :s3, 
+                               :s3_credentials => "#{Rails.root}/config/s3.yml",
+                               :path => "/:style/:filename"}
+
   # The production environment is meant for finished, "live" apps.
   # Code is not reloaded between requests
   config.cache_classes = true

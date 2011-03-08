@@ -17,6 +17,8 @@ end
 
 gem 'hoptoad_notifier'
 
+gem 'aws-s3'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
