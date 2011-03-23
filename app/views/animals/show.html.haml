@@ -1,5 +1,7 @@
 .transbox
   %h1= @animal.name
-  %p= image_tag @animal.image.url(:medium)
-  %p= link_to 'Edit', edit_animal_path
-  %p= link_to 'Delete', animal_path(@animal), :method => :delete
+  %div= image_tag @animal.image.url(:medium)
+  #linelink
+    %ul
+      %li= link_to 'Edit', edit_animal_path
+      %li= link_to 'Delete', animal_path(@animal), :method => :delete

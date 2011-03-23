@@ -1,12 +1,31 @@
+
+header, footer, aside, nav, article {
+  display: block;
+}
+
 html {
   height: 100%;
-  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
   background-color: rgb(186, 158, 127);
 }
 
 body {
+  max-width: 100%;
+  margin: 0;
+  height: 100%;
+  padding: 0;
   font-family: Helvetica, sans-serif;
   color: rgb(143, 48, 0);
+}
+
+h2 {
+  margin: -20px 0 0 20px;
+}
+
+h3 {
+  font-size: 25px;
 }
 
 a {
@@ -15,16 +34,106 @@ a {
 }
 
 div.transbox {
-  float: left;
+  float: center;
   clear: left;
-  margin: 20px;
+  overflow: hidden;
+  width: 817px;
+  margin: 30px 50px 20px 50px;
   border-style: solid;
-  border-color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(0, 0, 0, 0.3);
   border-width: thin;
   -moz-border-radius: 10px;
   border-radius: 10px;
-  padding: 30px 10px;
-  background-color: rgba(213, 221, 232, 0.3);
-  -moz-box-shadow: 0px 0px 10px #fff;
-  -webkit-box-shadow: 0px 0px 10px #fff;
+  padding: 30px 5px;
+  background-color: rgba(0, 0, 0, 0.7);
+  -moz-box-shadow: 0px 0px 10px #000;
+  -webkit-box-shadow: 0px 0px 10px #000;
+}
+
+div.transbox h3 {
+  text-align: center;
+}
+
+div.transbox div {
+  text-align: center;
+}
+
+div.transbox h1 {
+  text-align: center;
+}
+
+#nav {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  position: relative;
+  top: -21px;
+  -moz-box-shadow: 0px 0px 10px #2E2E2E;
+  -webkit-box-shadow: 0px 0px 10px #2E2E2E;
+}
+
+#nav ul {
+  list-style: none;
+  float: right;
+  padding: 0;
+  margin: 0;
+}
+
+#nav li {
+  float: right;
+}
+
+#nav li a {
+	display: block;
+	padding: 10px 15px;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+#nav li a:hover {
+  background-color: rgb(94, 94, 94);
+}
+
+.clear {
+  clear: both;
+}
+
+#linelink {
+  width: 100%;
+}
+
+#linelink ul {
+  list-style: none;
+  float: center;
+}
+
+#linelink li {
+  float: left;
+  padding: 0 0 0 240px
+}
+
+#linelink li a {
+  display: block;
+  padding: 0 15px 0 0;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.thumbs {
+  float: left;
+  width: 110px;
+  height: 175px;
+  border: 1px solid rgba(143, 48, 0, 0.7);
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  margin: 7px 7px 7px 7px;
+  padding: 5px;
+  background-color: rgba(143, 48, 0, 0.7);
+  -moz-box-shadow: 0px 0px 10px rgb(143, 48, 0);
+  -webkit-box-shadow: 0px 0px 10px rgb(143, 48, 0);
+}
+
+.thumbs div {
+  height: 90px;
 }

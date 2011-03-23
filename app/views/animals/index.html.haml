@@ -1,8 +1,7 @@
-%h1 Cat or Badger!
 %h2 Time to get real.  Bloody.
 
-- @animals.each do |animal|
-  .transbox
-    %h2= link_to animal.name, animal_path(animal)
-    %div= image_tag animal.image.url(:thumb)
-   
+.transbox
+  - @animals.each do |animal|
+    .thumbs
+      %div= image_tag animal.image.url(:thumb)
+      %h3= link_to animal.name, animal_path(animal)
