@@ -1,5 +1,17 @@
 = form_for @animal, :html => { :multipart => true } do |form|
   = form.label :name
   = form.text_field :name
+  = form.label :quip
+  = form.text_field :quip
+  = form.label :blood_type
+  = form.text_field :blood_type
+  = form.label :special_move
+  = form.text_field :special_move
+  = form.label :strength
+  = form.text_field :strength
+  = form.label :weakness
+  = form.text_field :weakness
+  = form.label :bio
+  = form.text_area :bio
   = form.file_field :image
   = form.submit "create animal"

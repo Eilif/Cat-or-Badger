@@ -5,3 +5,20 @@
     %ul
       %li= link_to 'Edit', edit_animal_path
       %li= link_to 'Delete', animal_path(@animal), :method => :delete
+  %br
+  %br
+  %h2= @animal.quip
+  %p
+    Strength: 
+    = @animal.strength
+  %p 
+    Weakness: 
+    = @animal.weakness
+  %p
+    Blood type: 
+    = @animal.blood_type
+  %p
+    Special move: 
+    = @animal.special_move
+  %p Bio:
+  %p= @animal.bio
