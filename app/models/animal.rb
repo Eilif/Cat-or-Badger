@@ -10,4 +10,7 @@ class Animal < ActiveRecord::Base
   validates_presence_of :name
   validates_attachment_presence :image
 
+  has_many :battles, :through => :contentions
+  has_many :contentions, :dependent => :destroy
+
 end

@@ -3,6 +3,7 @@ CatOrBadger::Application.routes.draw do
   root :to => 'animals#index'
 
   resources :animals
+  resources :battles
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
