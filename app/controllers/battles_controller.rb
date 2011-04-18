@@ -17,9 +17,9 @@ class BattlesController < ApplicationController
     @battles = Battle.all :order => 'id DESC'
   end
 
-#  def show
-#    @battle = Battle.find(params[:id])
-#  end
+  def show
+    @battle = Battle.find(params[:id])
+  end
 
 #  def edit
 #  end
@@ -27,7 +27,10 @@ class BattlesController < ApplicationController
 #  def update
 #  end
 
-#  def destroy
-#  end
+  def destroy
+    @battle = Battle.find(params[:id])
+    @battle.destroy
+    redirect_to root_path
+  end
 
 end

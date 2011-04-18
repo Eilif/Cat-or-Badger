@@ -80,4 +80,45 @@ describe BattlesController do
 
   end
 
+  describe 'get to show' do
+
+    before(:each) do
+      @test_image = Rails.root + "spec/fixtures/images/seagull.jpg"
+      @file = Rack::Test::UploadedFile.new(@test_image, "image/jpeg")
+      Animal.create!(:name => "Terrence", :image => @file)
+      Animal.create!(:name => "Lawrence", :image => @file)
+      @battle = Battle.create!(:animal_names => ["Terrence", "Lawrence"], :blurb => "They're at it again")
+      get :show, :id => @battle.to_param
+    end
+
+    it 'should respond with success' do
+      response.should be_success
+    end
+
+    it 'should show correct battle' do
+      assigns(:battle).should eq(@battle)
+    end
+
+  end
+
+  describe 'delete to destroy' do
+    before(:each) do
+      @test_image = Rails.root + "spec/fixtures/images/seagull.jpg"
+      @file = Rack::Test::UploadedFile.new(@test_image, "image/jpeg")
+      Animal.create!(:name => "Terrence", :image => @file)
+      Animal.create!(:name => "Lawrence", :image => @file)
+      @battle = Battle.create!(:animal_names => ["Terrence", "Lawrence"], :blurb => "They're at it again")
+      delete :destroy, :id => @battle.to_param
+    end
+
+    it 'should delete the correct battle' do
+      Battle.last.should be_nil
+    end
+
+    it 'should redirect to root path' do
+      response.should redirect_to(root_path)
+    end
+  
+  end
+
 end
