@@ -45,4 +45,39 @@ describe BattlesController do
     
   end
 
+  describe 'post to create with invalid battle attributes' do
+
+    before(:each) { post :create, :battle => { :blurb => "ultrabattle!", :animal_names => [] } }
+
+    it 'should not create new battle' do
+      Battle.last.should be_nil
+    end
+
+    it 'should render new' do
+      response.should render_template(:new)
+    end
+
+  end
+
+  describe 'get to index' do
+
+    before(:each) do
+      @test_image = Rails.root + "spec/fixtures/images/seagull.jpg"
+      @file = Rack::Test::UploadedFile.new(@test_image, "image/jpeg")
+      Animal.create!(:name => "Terrence", :image => @file)
+      Animal.create!(:name => "Lawrence", :image => @file)
+      5.times{ Battle.create!(:animal_names => ["Terrence", "Lawrence"], :blurb => "They're at it again") }
+      get :index
+    end
+
+    it 'should respond with success' do
+      response.should be_success
+    end
+
+    it 'should assign all battles from newest to oldest to @battle' do
+      assigns(:battles).should eq(Battle.all.reverse)
+    end
+
+  end
+
 end

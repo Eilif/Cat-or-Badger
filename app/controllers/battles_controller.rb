@@ -9,13 +9,13 @@ class BattlesController < ApplicationController
     if @battle.save
       redirect_to root_path
     else
-#      render :action => :new
+      render :action => :new
     end
   end
 
-#  def index
-#    @battles = Battle.all
-#  end
+  def index
+    @battles = Battle.all :order => 'id DESC'
+  end
 
 #  def show
 #    @battle = Battle.find(params[:id])
