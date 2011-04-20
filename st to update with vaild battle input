@@ -1,0 +1,25 @@
+[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[31mF[0m[33m*[0m[33m*[0m
+
+Pending:
+[33m  BattlesController post to update with invalid battle input should render edit[0m
+[90m    # No reason given[0m
+[90m    # ./spec/controllers/battles_controller_spec.rb:180[0m
+[33m  BattlesController post to update with invalid battle input should not alter extant battle[0m
+[90m    # No reason given[0m
+[90m    # ./spec/controllers/battles_controller_spec.rb:184[0m
+
+Failures:
+
+  1) BattlesController post to update with valid battle input should assign new animal to animal_names
+     [31mFailure/Error:[0m [31m@b.animal_names.should eq(["Terrence", "Hortence"])[0m
+     [31mNoMethodError:[0m
+       [31mundefined method `animal_names' for #<Battle:0xb6be8be0>[0m
+[90m     # ./spec/controllers/battles_controller_spec.rb:159[0m
+
+  2) BattlesController post to update with valid battle input should redirect to root path
+     [31mFailure/Error:[0m [31mresponse.should redirect_to(root_path)[0m
+       [31mExpected response to be a <:redirect>, but was <200>[0m
+[90m     # ./spec/controllers/battles_controller_spec.rb:163[0m
+
+Finished in 13.89 seconds
+[31m20 examples, 2 failures, 2 pending[0m

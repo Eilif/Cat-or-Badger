@@ -1,3 +1,12 @@
--for each @battle |battle| do
-  print battle.contention.animal.name
-end
+= form_for @battle, :html => { :multipart => :true } do |form|
+  %p
+    = form.label :animal
+    = form.collection_select(:contender1, Animal.all, :id, :name, :include_blank => true)
+  %p
+    = form.label :animal
+    = form.collection_select(:contender2, Animal.all, :id, :name, :include_blank => true)
+  %p
+    = form.label :blurb
+    = form.text_field :blurb
+  %p
+    = form.submit "create battle"

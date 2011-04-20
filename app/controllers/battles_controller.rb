@@ -21,11 +21,19 @@ class BattlesController < ApplicationController
     @battle = Battle.find(params[:id])
   end
 
-#  def edit
-#  end
+  def edit
+    @battle = Battle.find(params[:id])
+  end
 
-#  def update
-#  end
+  def update
+    @battle = Battle.find(params[:id])
+    @battle.attributes = params[:battle]
+    if @battle.save
+      redirect_to root_path
+    else
+      render :action => :edit
+    end
+  end
 
   def destroy
     @battle = Battle.find(params[:id])

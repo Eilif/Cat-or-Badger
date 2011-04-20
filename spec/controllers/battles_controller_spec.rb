@@ -102,6 +102,7 @@ describe BattlesController do
   end
 
   describe 'delete to destroy' do
+
     before(:each) do
       @test_image = Rails.root + "spec/fixtures/images/seagull.jpg"
       @file = Rack::Test::UploadedFile.new(@test_image, "image/jpeg")
@@ -119,6 +120,67 @@ describe BattlesController do
       response.should redirect_to(root_path)
     end
   
+  end
+
+  describe 'get edit' do
+
+    before(:each) do
+      @test_image = Rails.root + "spec/fixtures/images/seagull.jpg"
+      @file = Rack::Test::UploadedFile.new(@test_image, "image/jpeg")
+      Animal.create!(:name => "Terrence", :image => @file)
+      Animal.create!(:name => "Lawrence", :image => @file)
+      @b = Battle.create!(:animal_names => ["Terrence", "Lawrence"], :blurb => "They're at it again")
+      get :edit, :id => @b.to_param
+    end
+
+    it 'should respond with success' do
+      response.should be_success
+    end
+
+    it 'should assign correct battle to @battle' do
+      assigns(:battle).should eq(@b)
+    end
+
+  end
+
+  describe 'post to update with valid battle input' do
+
+    before(:each) do
+      @test_image = Rails.root + "spec/fixtures/images/seagull.jpg"
+      @file = Rack::Test::UploadedFile.new(@test_image, "image/jpeg")
+      Animal.create!(:name => "Terrence", :image => @file)
+      Animal.create!(:name => "Lawrence", :image => @file)
+      Animal.create!(:name => "Hortence", :image => @file)
+      @b = Battle.create!(:animal_names => ["Terrence", "Lawrence"], :blurb => "They're at it again")
+      post :update, :id => @b.to_param, :battle => { :animal_names => ["Terrence", "Hortence"] }
+    end
+
+    it 'should assign new animal to animal_names' do
+      Battle.last.animals.first.name.should eq("Terrence")
+      Battle.last.animals.last.name.should eq("Hortence")
+    end
+
+    it 'should redirect to root path' do
+      response.should redirect_to(root_path)
+    end
+
+  end
+
+  describe 'post to update with invalid battle input' do
+
+    before(:each) do
+      @test_image = Rails.root + "spec/fixtures/images/seagull.jpg"
+      @file = Rack::Test::UploadedFile.new(@test_image, "image/jpeg")
+      Animal.create!(:name => "Terrence", :image => @file)
+      Animal.create!(:name => "Lawrence", :image => @file)
+      Animal.create!(:name => "Hortence", :image => @file)
+      @b = Battle.create!(:animal_names => ["Terrence", "Lawrence"], :blurb => "They're at it again")
+      post :update, :id => @b.to_param, :battle => { :animal_names => ['Hubert', ''] }
+    end
+
+    it 'should render edit' do
+      response.should render_template(:edit)
+    end
   end
 
 end
