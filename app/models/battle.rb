@@ -1,9 +1,10 @@
 class Battle < ActiveRecord::Base
 
-  has_many :contentions, :dependent => :destroy
-  has_many :animals, :through => :contentions
+  belongs_to :animal_1, :class_name => "Animal"
+  belongs_to :animal_2, :class_name => "Animal"
 
-  validates_size_of :contentions, :is => 2
+  validates_presence_of :animal_1
+  validates_presence_of :animal_2
 
   def animal_names=(animal_names)
     if animal_names.present?

@@ -21,9 +21,9 @@ describe BattlesController do
     before(:each) do
       @test_image = Rails.root + "spec/fixtures/images/seagull.jpg"
       @file = Rack::Test::UploadedFile.new(@test_image, "image/jpeg")
-      Animal.create!(:name => "Terrence", :image => @file)
-      Animal.create!(:name => "Lawrence", :image => @file)
-      post :create, :battle => { :animal_names => ["Terrence", "Lawrence"], :blurb => "ah, ahem"}
+      @terrence = Animal.create!(:name => "Terrence", :image => @file)
+      @lawrence = Animal.create!(:name => "Lawrence", :image => @file)
+      post :create, :battle => { :animal_1 => @terrence, :animal_2 => @lawrence, :blurb => "ah, ahem"}
     end
 
     it 'should redirect to root path' do
@@ -39,15 +39,15 @@ describe BattlesController do
     end
 
     it 'should have contentions with Terrence and Lawrence' do
-      Battle.last.animals.first.name.should eq("Terrence")
-      Battle.last.animals.last.name.should eq("Lawrence")
+      Battle.last.animal_1.name.should eq("Terrence")
+      Battle.last.animal_2.name.should eq("Lawrence")
     end
     
   end
 
   describe 'post to create with invalid battle attributes' do
 
-    before(:each) { post :create, :battle => { :blurb => "ultrabattle!", :animal_names => [] } }
+    before(:each) { post :create, :battle => { :blurb => "ultrabattle!", :animal_1 => @emptiness, :animal_2 => @noanimal } }
 
     it 'should not create new battle' do
       Battle.last.should be_nil
@@ -64,9 +64,9 @@ describe BattlesController do
     before(:each) do
       @test_image = Rails.root + "spec/fixtures/images/seagull.jpg"
       @file = Rack::Test::UploadedFile.new(@test_image, "image/jpeg")
-      Animal.create!(:name => "Terrence", :image => @file)
-      Animal.create!(:name => "Lawrence", :image => @file)
-      5.times{ Battle.create!(:animal_names => ["Terrence", "Lawrence"], :blurb => "They're at it again") }
+      @terrence = Animal.create!(:name => "Terrence", :image => @file)
+      @lawrence = Animal.create!(:name => "Lawrence", :image => @file)
+      5.times{ Battle.create!(:animal_1 => @terrence, :animal_2 => @lawrence, :blurb => "They're at it again") }
       get :index
     end
 
@@ -85,9 +85,9 @@ describe BattlesController do
     before(:each) do
       @test_image = Rails.root + "spec/fixtures/images/seagull.jpg"
       @file = Rack::Test::UploadedFile.new(@test_image, "image/jpeg")
-      Animal.create!(:name => "Terrence", :image => @file)
-      Animal.create!(:name => "Lawrence", :image => @file)
-      @battle = Battle.create!(:animal_names => ["Terrence", "Lawrence"], :blurb => "They're at it again")
+      @terrence = Animal.create!(:name => "Terrence", :image => @file)
+      @lawrence = Animal.create!(:name => "Lawrence", :image => @file)
+      @battle = Battle.create!(:animal_1 => @terrence, :animal_2 => @lawrence, :blurb => "They're at it again")
       get :show, :id => @battle.to_param
     end
 
@@ -103,12 +103,12 @@ describe BattlesController do
 
   describe 'delete to destroy' do
 
-    before(:each) do
+     before(:each) do
       @test_image = Rails.root + "spec/fixtures/images/seagull.jpg"
       @file = Rack::Test::UploadedFile.new(@test_image, "image/jpeg")
-      Animal.create!(:name => "Terrence", :image => @file)
-      Animal.create!(:name => "Lawrence", :image => @file)
-      @battle = Battle.create!(:animal_names => ["Terrence", "Lawrence"], :blurb => "They're at it again")
+      @terrence = Animal.create!(:name => "Terrence", :image => @file)
+      @lawrence = Animal.create!(:name => "Lawrence", :image => @file)
+      @battle = Battle.create!(:animal_1 => @terrence, :animal_2 => @lawrence, :blurb => "They're at it again")
       delete :destroy, :id => @battle.to_param
     end
 
@@ -124,12 +124,12 @@ describe BattlesController do
 
   describe 'get edit' do
 
-    before(:each) do
+     before(:each) do
       @test_image = Rails.root + "spec/fixtures/images/seagull.jpg"
       @file = Rack::Test::UploadedFile.new(@test_image, "image/jpeg")
-      Animal.create!(:name => "Terrence", :image => @file)
-      Animal.create!(:name => "Lawrence", :image => @file)
-      @b = Battle.create!(:animal_names => ["Terrence", "Lawrence"], :blurb => "They're at it again")
+      @terrence = Animal.create!(:name => "Terrence", :image => @file)
+      @lawrence = Animal.create!(:name => "Lawrence", :image => @file)
+      @b = Battle.create!(:animal_1 => @terrence, :animal_2 => @lawrence, :blurb => "They're at it again")
       get :edit, :id => @b.to_param
     end
 
@@ -148,16 +148,16 @@ describe BattlesController do
     before(:each) do
       @test_image = Rails.root + "spec/fixtures/images/seagull.jpg"
       @file = Rack::Test::UploadedFile.new(@test_image, "image/jpeg")
-      Animal.create!(:name => "Terrence", :image => @file)
-      Animal.create!(:name => "Lawrence", :image => @file)
-      Animal.create!(:name => "Hortence", :image => @file)
-      @b = Battle.create!(:animal_names => ["Terrence", "Lawrence"], :blurb => "They're at it again")
-      post :update, :id => @b.to_param, :battle => { :animal_names => ["Terrence", "Hortence"] }
+      @terrence = Animal.create!(:name => "Terrence", :image => @file)
+      @hortence = Animal.create!(:name => "Hortence", :image => @file)
+      @lawrence = Animal.create!(:name => "Lawrence", :image => @file)
+      @b = Battle.create!(:animal_1 => @terrence, :animal_2 => @hortence, :blurb => "They're at it again")
+      post :update, :id => @b.to_param, :battle => { :animal_1 => @lawrence }
     end
 
     it 'should assign new animal to animal_names' do
-      Battle.last.animals.first.name.should eq("Terrence")
-      Battle.last.animals.last.name.should eq("Hortence")
+      Battle.last.animal_1.name.should eq("Lawrence")
+      Battle.last.animal_2.name.should eq("Hortence")
     end
 
     it 'should redirect to root path' do
@@ -171,11 +171,11 @@ describe BattlesController do
     before(:each) do
       @test_image = Rails.root + "spec/fixtures/images/seagull.jpg"
       @file = Rack::Test::UploadedFile.new(@test_image, "image/jpeg")
-      Animal.create!(:name => "Terrence", :image => @file)
-      Animal.create!(:name => "Lawrence", :image => @file)
-      Animal.create!(:name => "Hortence", :image => @file)
-      @b = Battle.create!(:animal_names => ["Terrence", "Lawrence"], :blurb => "They're at it again")
-      post :update, :id => @b.to_param, :battle => { :animal_names => ['Hubert', ''] }
+      @terrence = Animal.create!(:name => "Terrence", :image => @file)
+      @lawrence = Animal.create!(:name => "Lawrence", :image => @file)
+      @hortence = Animal.create!(:name => "Hortence", :image => @file)
+      @b = Battle.create!(:animal_1 => @terrence, :animal_2 => @lawrence, :blurb => "They're at it again")
+      post :update, :id => @b.to_param, :battle => { :animal_1 => @emptiness }
     end
 
     it 'should render edit' do
