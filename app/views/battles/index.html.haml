@@ -2,7 +2,9 @@
 - @battles.each do |battle|
   .transbox
     %h2= battle.blurb
-    =battle.animal_1.name
-    =image_tag battle.animal_1.image.url(:thumb)
-    =battle.animal_2.name
-    =image_tag battle.animal_2.image.url(:thumb)
+    .thumbs
+      %div= image_tag battle.animal_1.image.url(:thumb)
+      %h3= link_to battle.animal_1.name, animal_path(battle.animal_1)
+    .thumbs
+      %div= image_tag battle.animal_2.image.url(:thumb)
+      %h3= link_to battle.animal_2.name, animal_path(battle.animal_2)
