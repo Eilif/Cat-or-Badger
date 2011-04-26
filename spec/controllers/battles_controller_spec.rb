@@ -183,4 +183,26 @@ describe BattlesController do
     end
   end
 
+  describe 'get newest' do
+
+    before(:each) do
+      @test_image = Rails.root + "spec/fixtures/images/seagull.jpg"
+      @file = Rack::Test::UploadedFile.new(@test_image, "image/jpeg")
+      @terrence = Animal.create!(:name => "Terrence", :image => @file)
+      @lawrence = Animal.create!(:name => "Lawrence", :image => @file)
+      @battle = Battle.create!(:animal_1 => @terrence, :animal_2 => @lawrence, :blurb => "They're at it again")
+      get :newest, :id => @battle.to_param
+    end
+
+    it 'should respond with success' do
+      response.should be_success
+    end
+
+    it 'should get the last battle' do
+      assigns(:battle).should eq(@battle)
+      @battle.should eq(Battle.last)
+    end
+
+  end
+
 end

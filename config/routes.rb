@@ -1,9 +1,13 @@
 CatOrBadger::Application.routes.draw do
 
-  root :to => 'battles#index'
+  root :to => 'battles#newest'
 
   resources :animals
-  resources :battles
+  resources :battles do
+    collection do
+      get 'newest'
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

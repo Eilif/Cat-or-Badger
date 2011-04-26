@@ -41,4 +41,9 @@ class BattlesController < ApplicationController
     redirect_to root_path
   end
 
+  def newest
+    @battle = Battle.last
+    render :action => :show
+  end
+
 end
