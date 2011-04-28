@@ -33,4 +33,18 @@ describe Battle do
     b.blurb.should eq("It's MF'ing on!")
   end
 
+  it 'can increment votes on animals' do
+    b = Battle.create!(:animal_1 => @terrence, :animal_2 => @lawrence)
+    b.vote_for(@terrence.id)
+    b.animal_1_vote.should eq(1)
+  end
+
+  it 'can increment votes multiple times on multiple animals' do
+    b = Battle.create!(:animal_1 => @terrence, :animal_2 => @lawrence)
+    5.times { b.vote_for(@terrence.id) }
+    3.times { b.vote_for(@lawrence.id) }
+    b.animal_1_vote.should eq(5)
+    b.animal_2_vote.should eq(3)
+  end
+
 end
