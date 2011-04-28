@@ -4,9 +4,13 @@ CatOrBadger::Application.routes.draw do
 
   resources :animals
   resources :battles do
+
     collection do
       get 'newest'
     end
+
+    resources :votes
+
   end
 
   # The priority is based upon order of creation:

@@ -19,6 +19,7 @@
     %p 
       %b Bio:
       = @battle.animal_1.bio
+    %p= button_to "vote for #{@battle.animal_1.name}", battle_votes_path(@battle, :animal_id => @battle.animal_1.id), :method => :post
   OR
   .contender2box
     %div= image_tag @battle.animal_2.image.url(:medium)
@@ -39,3 +40,4 @@
     %p 
       %b Bio:
       = @battle.animal_2.bio
+    %p= button_to "vote for #{@battle.animal_2.name}", battle_votes_path(@battle, :animal_id => @battle.animal_2.id), :method => :post
