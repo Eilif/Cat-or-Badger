@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110426230351) do
+ActiveRecord::Schema.define(:version => 20110429031848) do
 
   create_table "animals", :force => true do |t|
     t.string   "name"
@@ -34,8 +34,8 @@ ActiveRecord::Schema.define(:version => 20110426230351) do
     t.datetime "updated_at"
     t.integer  "animal_1_id"
     t.integer  "animal_2_id"
-    t.integer  "animal_1_vote"
-    t.integer  "animal_2_vote"
+    t.integer  "animal_1_vote", :default => 0
+    t.integer  "animal_2_vote", :default => 0
   end
 
 end

@@ -47,4 +47,20 @@ describe Battle do
     b.animal_2_vote.should eq(3)
   end
 
+  it 'can declare a winner' do
+    b = Battle.create!(:animal_1 => @terrence, :animal_2 => @lawrence)
+    5.times { b.vote_for(@terrence.id) }
+    3.times { b.vote_for(@lawrence.id) }
+    o = b.declare_outcome
+    o.should eq("Terrence wins!")
+  end
+
+  it 'can declare a draw' do
+    b = Battle.create!(:animal_1 => @terrence, :animal_2 => @lawrence)
+    5.times { b.vote_for(@terrence.id) }
+    5.times { b.vote_for(@lawrence.id) }
+    o = b.declare_outcome
+    o.should eq("Goddamn draw.")
+  end
+
 end

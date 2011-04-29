@@ -1,7 +1,7 @@
 %h2 Time to get real. Bloody.
 - @battles.each do |battle|
   .transbox
-    %h2= battle.blurb
+    %h2= link_to battle.blurb, battle_path(battle)
     .thumbs
       %div= image_tag battle.animal_1.image.url(:thumb)
       %h3= link_to battle.animal_1.name, animal_path(battle.animal_1)
