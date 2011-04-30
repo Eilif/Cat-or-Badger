@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110429031848) do
+ActiveRecord::Schema.define(:version => 20110430000948) do
 
   create_table "animals", :force => true do |t|
     t.string   "name"
@@ -36,6 +36,19 @@ ActiveRecord::Schema.define(:version => 20110429031848) do
     t.integer  "animal_2_id"
     t.integer  "animal_1_vote", :default => 0
     t.integer  "animal_2_vote", :default => 0
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "username"
+    t.string   "email"
+    t.text     "bio"
+    t.text     "signature_quote"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
