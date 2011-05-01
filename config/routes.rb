@@ -3,6 +3,7 @@ CatOrBadger::Application.routes.draw do
   root :to => 'battles#newest'
 
   resources :animals
+  resources :users
   resources :battles do
 
     collection do

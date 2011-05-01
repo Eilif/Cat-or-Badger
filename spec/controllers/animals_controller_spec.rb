@@ -83,7 +83,7 @@ describe AnimalsController do
 
   end
 
-  describe "post to update with valid input" do
+  describe "put to update with valid input" do
 
     before(:each) do
       @a = Animal.create(:name => "Abstacia", :image => File.new(Rails.root + 'spec/fixtures/images/seagull.jpg'))
