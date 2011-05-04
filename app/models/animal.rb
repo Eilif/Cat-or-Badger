@@ -7,6 +7,8 @@ class Animal < ActiveRecord::Base
     }
   )
 
+  has_many :votes
+
   validates_presence_of :name
   validates_attachment_presence :image
 

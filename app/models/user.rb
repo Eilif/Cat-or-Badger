@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
     }
   )
 
+  has_many :votes
+
   validates_presence_of :username 
   validates_length_of :username, :in => 3..30
   validates_format_of :username, :with => /^[\w.]*$/

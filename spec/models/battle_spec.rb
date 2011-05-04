@@ -36,21 +36,23 @@ describe Battle do
   it 'can increment votes on animals' do
     b = Battle.create!(:animal_1 => @terrence, :animal_2 => @lawrence)
     b.vote_for(@terrence.id)
-    b.animal_1_vote.should eq(1)
+    b.animal_1.vote.should eq(1)
   end
 
   it 'can increment votes multiple times on multiple animals' do
     b = Battle.create!(:animal_1 => @terrence, :animal_2 => @lawrence)
     5.times { b.vote_for(@terrence.id) }
     3.times { b.vote_for(@lawrence.id) }
-    b.animal_1_vote.should eq(5)
-    b.animal_2_vote.should eq(3)
+    b.tally_votes
+    b.animal_1.vote.should eq(5)
+    b.animal_2.vote.should eq(3)
   end
 
   it 'can declare a winner' do
     b = Battle.create!(:animal_1 => @terrence, :animal_2 => @lawrence)
     5.times { b.vote_for(@terrence.id) }
     3.times { b.vote_for(@lawrence.id) }
+    b.tally_votes
     o = b.declare_outcome
     o.should eq("Terrence wins!")
   end
@@ -59,6 +61,7 @@ describe Battle do
     b = Battle.create!(:animal_1 => @terrence, :animal_2 => @lawrence)
     5.times { b.vote_for(@terrence.id) }
     5.times { b.vote_for(@lawrence.id) }
+    b.tally_votes
     o = b.declare_outcome
     o.should eq("Goddamn draw.")
   end

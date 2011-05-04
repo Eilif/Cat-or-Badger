@@ -6,23 +6,53 @@ class Battle < ActiveRecord::Base
   validates_presence_of :animal_1
   validates_presence_of :animal_2
 
+  has_many :votes
+
   def vote_for(animal_id)
     if animal_id.to_i == animal_1_id
-      self.increment! :animal_1_vote
+      Vote.create(:battle => self, :animal => animal_1)
     elsif animal_id.to_i == animal_2_id
-      self.increment! :animal_2_vote
+      Vote.create(:battle => self, :animal => animal_2)
+    end
+  end
+
+  def tally_votes
+    Vote.find(:animal_id => self.animal_1_id).each do |a1|
+      animal_1_score = a1.weight.increment!
+    end
+
+    Vote.find(:animal_id => self.animal_2_id).each do |a2|
+      animal_2_score = a2.weight.increment!
     end
   end
 
   def declare_outcome
-    if self.animal_1_vote > self.animal_2_vote
+    if animal_1_score > animal_2_score
       self.animal_1.name + " wins!"
-    elsif self.animal_2_vote > self.animal_1_vote
-      self.animal_2.name " wins!"
+    elsif animal_2_score > animal_1_score
+      self.animal_2.name + " wins!"
     else
       "Goddamn draw."
     end
   end
+
+#  def vote_for(animal_id)
+#    if animal_id.to_i == animal_1_id
+#      self.increment! :animal_1_vote
+#    elsif animal_id.to_i == animal_2_id
+#      self.increment! :animal_2_vote
+#    end
+#  end
+
+#  def declare_outcome
+#    if self.animal_1_vote > self.animal_2_vote
+#      self.animal_1.name + " wins!"
+#    elsif self.animal_2_vote > self.animal_1_vote
+#      self.animal_2.name " wins!"
+#    else
+#      "Goddamn draw."
+#    end
+#  end
 
 end
 
