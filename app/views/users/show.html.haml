@@ -1,0 +1,11 @@
+.transbox
+  %div= image_tag @user.image.url(:thumb)
+  %h3= @user.username
+  %p= @user.signature_quote
+  %br
+  %p You can reach me at: #{ @user.email }
+  %br
+  %p= @user.bio
+  %br
+  %p= link_to "Edit", edit_user_path
+  

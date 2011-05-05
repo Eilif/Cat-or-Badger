@@ -1,0 +1,6 @@
+.transbox
+  - @users.each do |user|
+    .thumbs
+      %div= image_tag user.image.url(:thumb)
+      %h3= link_to user.username, user_path(user)
+      %p= link_to "delete", user_path(user), :method => :delete

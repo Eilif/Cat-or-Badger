@@ -1,0 +1,19 @@
+= form_for @user, :html => { :multipart => true } do |form|
+
+  %p
+    Upload an avatar image.
+    = form.file_field :image
+  %p
+    = form.label :username
+    = form.text_field :username
+  %p
+    = form.label :email
+    = form.text_field :email
+  %p
+    = form.label :signature_quote
+    = form.text_field :signature_quote
+  %p
+    = form.label :bio
+    = form.text_area :bio
+  %p
+    = form.submit "create user profile"
