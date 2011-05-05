@@ -20,9 +20,9 @@
       %b Bio:
       = @battle.animal_1.bio
     - if @battle == Battle.last
-      %p= button_to "vote for #{@battle.animal_1.name}", battle_votes_path(@battle, :animal_id => @battle.animal_1.id), :method => :post
+      %p= button_to "vote for #{@battle.animal_1.name}", battle_votes_path(@battle, :vote => { :animal_id => @battle.animal_1.id }), :method => :post
     - else
-      %p= "#{ @battle.animal_1_vote } votes"
+      %p= "#{ @battle.tally_animal_1 } votes"
   OR
   .contender2box
     %div= image_tag @battle.animal_2.image.url(:medium)
@@ -44,8 +44,8 @@
       %b Bio:
       = @battle.animal_2.bio
     - if @battle == Battle.last
-      %p= button_to "vote for #{@battle.animal_2.name}", battle_votes_path(@battle, :animal_id => @battle.animal_2.id), :method => :post
+      %p= button_to "vote for #{@battle.animal_2.name}", battle_votes_path(@battle, :vote => { :animal_id => @battle.animal_2.id }), :method => :post
     - else
-      %p= "#{ @battle.animal_2_vote } votes"
+      %p= "#{ @battle.tally_animal_2 } votes"
   - if @battle != Battle.last
     %p= @battle.declare_outcome

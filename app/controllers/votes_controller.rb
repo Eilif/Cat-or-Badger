@@ -5,7 +5,8 @@ class VotesController < ApplicationController
   end
 
   def create
-    @vote = Vote.new(params[:vote])
+    @battle = Battle.find(params[:battle_id])
+    @vote = @battle.votes.build(params[:vote])
     if @vote.save
       redirect_to root_path
     else

@@ -16,5 +16,3 @@ class User < ActiveRecord::Base
   validates_length_of :signature_quote, :maximum => 400
  
 end
-
-#user has username, email, password, password_verification, avatar, signature_quote, bio

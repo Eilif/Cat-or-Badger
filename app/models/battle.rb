@@ -8,51 +8,27 @@ class Battle < ActiveRecord::Base
 
   has_many :votes
 
-  def vote_for(animal_id)
-    if animal_id.to_i == animal_1_id
-      Vote.create(:battle => self, :animal => animal_1)
-    elsif animal_id.to_i == animal_2_id
-      Vote.create(:battle => self, :animal => animal_2)
-    end
+  def tally_animal(animal)
+    self.votes.sum(:weight, :conditions => { :animal_id => animal.id })
   end
 
-  def tally_votes
-    Vote.find(:animal_id => self.animal_1_id).each do |a1|
-      animal_1_score = a1.weight.increment!
-    end
+  def tally_animal_1
+    tally_animal(animal_1)
+  end
 
-    Vote.find(:animal_id => self.animal_2_id).each do |a2|
-      animal_2_score = a2.weight.increment!
-    end
+  def tally_animal_2
+    tally_animal(animal_2)
   end
 
   def declare_outcome
-    if animal_1_score > animal_2_score
+    if tally_animal_1 > tally_animal_2
       self.animal_1.name + " wins!"
-    elsif animal_2_score > animal_1_score
+    elsif tally_animal_2 > tally_animal_1
       self.animal_2.name + " wins!"
     else
       "Goddamn draw."
     end
   end
-
-#  def vote_for(animal_id)
-#    if animal_id.to_i == animal_1_id
-#      self.increment! :animal_1_vote
-#    elsif animal_id.to_i == animal_2_id
-#      self.increment! :animal_2_vote
-#    end
-#  end
-
-#  def declare_outcome
-#    if self.animal_1_vote > self.animal_2_vote
-#      self.animal_1.name + " wins!"
-#    elsif self.animal_2_vote > self.animal_1_vote
-#      self.animal_2.name " wins!"
-#    else
-#      "Goddamn draw."
-#    end
-#  end
 
 end
 

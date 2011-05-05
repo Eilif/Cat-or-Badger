@@ -1,5 +1,7 @@
 class Vote < ActiveRecord::Base
 
+  before_validation :set_weight
+
   belongs_to :animal
   belongs_to :battle
   belongs_to :user
@@ -13,6 +15,10 @@ class Vote < ActiveRecord::Base
     unless weight == 1 or weight == 10
       errors.add(:weight, "weight must be 1 or 10")
     end
+  end
+
+  def set_weight
+    self.weight ||= 1
   end
 
 end
