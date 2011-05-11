@@ -7,6 +7,7 @@ class Battle < ActiveRecord::Base
   validates_presence_of :animal_2
 
   has_many :votes
+  has_many :stories
 
   def tally_animal(animal)
     self.votes.sum(:weight, :conditions => { :animal_id => animal.id })

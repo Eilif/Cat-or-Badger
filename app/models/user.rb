@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   )
 
   has_many :votes
+  has_many :stories
 
   validates_presence_of :username 
   validates_length_of :username, :in => 3..30

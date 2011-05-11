@@ -19,6 +19,8 @@ gem 'hoptoad_notifier'
 
 gem 'aws-s3'
 
+gem 'factory_girl_rails', :group => [:development, :test]
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
@@ -42,3 +44,7 @@ gem 'aws-s3'
 #   gem 'webrat'
 # end
 gem "rspec-rails", :group => [:development, :test]
+
+#group :test, :development do
+#  gem "rspec-rails", "~> 2.5.1"
+#end

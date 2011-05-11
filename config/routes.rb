@@ -5,6 +5,7 @@ CatOrBadger::Application.routes.draw do
   resources :animals
   resources :users
   resources :votes
+  resources :stories
   resources :battles do
 
     collection do

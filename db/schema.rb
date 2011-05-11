@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110502233524) do
+ActiveRecord::Schema.define(:version => 20110505224732) do
 
   create_table "animals", :force => true do |t|
     t.string   "name"
@@ -36,6 +36,15 @@ ActiveRecord::Schema.define(:version => 20110502233524) do
     t.integer  "animal_2_id"
     t.integer  "animal_1_vote", :default => 0
     t.integer  "animal_2_vote", :default => 0
+  end
+
+  create_table "stories", :force => true do |t|
+    t.string   "title"
+    t.text     "story_text"
+    t.integer  "battle_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|
