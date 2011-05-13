@@ -19,11 +19,11 @@ describe BattlesController do
   describe 'post to create with valid battle attributes' do
 
     before(:each) do
-      @test_image = Rails.root + "spec/fixtures/images/seagull.jpg"
-      @file = Rack::Test::UploadedFile.new(@test_image, "image/jpeg")
-      @terrence = Animal.create!(:name => "Terrence", :image => @file)
-      @lawrence = Animal.create!(:name => "Lawrence", :image => @file)
-      post :create, :battle => { :animal_1 => @terrence, :animal_2 => @lawrence, :blurb => "ah, ahem"}
+      @lokki = Factory.create(:lokki)
+      @susi_ihminen = Factory.create(:susi)
+      post :create, :battle => { :animal_1_id => @lokki.to_param,
+        :animal_2_id => @susi_ihminen.to_param, :blurb => "ah, ahem"
+      }
     end
 
     it 'should redirect to root path' do
@@ -39,15 +39,16 @@ describe BattlesController do
     end
 
     it 'should have contentions with Terrence and Lawrence' do
-      Battle.last.animal_1.name.should eq("Terrence")
-      Battle.last.animal_2.name.should eq("Lawrence")
+      Battle.last.animal_1.name.should eq("Lokki")
+      Battle.last.animal_2.name.should eq("Susi-Ihminen")
     end
     
   end
 
   describe 'post to create with invalid battle attributes' do
 
-    before(:each) { post :create, :battle => { :blurb => "ultrabattle!", :animal_1 => @emptiness, :animal_2 => @noanimal } }
+    before(:each) { post :create, :battle => { :blurb => "ultrabattle!",
+      :animal_1 => @emptiness, :animal_2 => @noanimal } }
 
     it 'should not create new battle' do
       Battle.last.should be_nil
@@ -62,16 +63,14 @@ describe BattlesController do
   describe 'get to index' do
 
     before(:each) do
-      @test_image = Rails.root + "spec/fixtures/images/seagull.jpg"
-      @file = Rack::Test::UploadedFile.new(@test_image, "image/jpeg")
-      @terrence = Animal.create!(:name => "Terrence", :image => @file)
-      @lawrence = Animal.create!(:name => "Lawrence", :image => @file)
-      5.times{ Battle.create!(:animal_1 => @terrence, :animal_2 => @lawrence, :blurb => "They're at it again") }
+      5.times do
+        Factory.create(:battle)
+      end
       get :index
     end
 
-    it 'should respond with success' do
-      response.should be_success
+    it 'should have five battles' do
+      Battle.count.should eq(5)
     end
 
     it 'should assign all battles from newest to oldest to @battle' do
@@ -83,11 +82,7 @@ describe BattlesController do
   describe 'get to show' do
 
     before(:each) do
-      @test_image = Rails.root + "spec/fixtures/images/seagull.jpg"
-      @file = Rack::Test::UploadedFile.new(@test_image, "image/jpeg")
-      @terrence = Animal.create!(:name => "Terrence", :image => @file)
-      @lawrence = Animal.create!(:name => "Lawrence", :image => @file)
-      @battle = Battle.create!(:animal_1 => @terrence, :animal_2 => @lawrence, :blurb => "They're at it again")
+      @battle = Factory.create(:battle)
       get :show, :id => @battle.to_param
     end
 
@@ -104,11 +99,7 @@ describe BattlesController do
   describe 'delete to destroy' do
 
      before(:each) do
-      @test_image = Rails.root + "spec/fixtures/images/seagull.jpg"
-      @file = Rack::Test::UploadedFile.new(@test_image, "image/jpeg")
-      @terrence = Animal.create!(:name => "Terrence", :image => @file)
-      @lawrence = Animal.create!(:name => "Lawrence", :image => @file)
-      @battle = Battle.create!(:animal_1 => @terrence, :animal_2 => @lawrence, :blurb => "They're at it again")
+      @battle = Factory.create(:battle)
       delete :destroy, :id => @battle.to_param
     end
 
@@ -125,11 +116,7 @@ describe BattlesController do
   describe 'get edit' do
 
      before(:each) do
-      @test_image = Rails.root + "spec/fixtures/images/seagull.jpg"
-      @file = Rack::Test::UploadedFile.new(@test_image, "image/jpeg")
-      @terrence = Animal.create!(:name => "Terrence", :image => @file)
-      @lawrence = Animal.create!(:name => "Lawrence", :image => @file)
-      @b = Battle.create!(:animal_1 => @terrence, :animal_2 => @lawrence, :blurb => "They're at it again")
+      @b = Factory.create(:battle)
       get :edit, :id => @b.to_param
     end
 
@@ -146,18 +133,16 @@ describe BattlesController do
   describe 'post to update with valid battle input' do
 
     before(:each) do
-      @test_image = Rails.root + "spec/fixtures/images/seagull.jpg"
-      @file = Rack::Test::UploadedFile.new(@test_image, "image/jpeg")
-      @terrence = Animal.create!(:name => "Terrence", :image => @file)
-      @hortence = Animal.create!(:name => "Hortence", :image => @file)
-      @lawrence = Animal.create!(:name => "Lawrence", :image => @file)
-      @b = Battle.create!(:animal_1 => @terrence, :animal_2 => @hortence, :blurb => "They're at it again")
-      post :update, :id => @b.to_param, :battle => { :animal_1 => @lawrence }
+      @b = Factory.create(:battle)
+      @koira = Factory.create(:koira)
+      post :update, :id => @b.to_param, :battle => {
+        :animal_1_id => @koira.to_param
+      }
     end
 
     it 'should assign new animal to animal_names' do
-      Battle.last.animal_1.name.should eq("Lawrence")
-      Battle.last.animal_2.name.should eq("Hortence")
+      Battle.last.animal_1.name.should eq("KarhuKoira")
+      Battle.last.animal_2.name.should eq("Susi-Ihminen")
     end
 
     it 'should redirect to root path' do
@@ -169,28 +154,20 @@ describe BattlesController do
   describe 'post to update with invalid battle input' do
 
     before(:each) do
-      @test_image = Rails.root + "spec/fixtures/images/seagull.jpg"
-      @file = Rack::Test::UploadedFile.new(@test_image, "image/jpeg")
-      @terrence = Animal.create!(:name => "Terrence", :image => @file)
-      @lawrence = Animal.create!(:name => "Lawrence", :image => @file)
-      @hortence = Animal.create!(:name => "Hortence", :image => @file)
-      @b = Battle.create!(:animal_1 => @terrence, :animal_2 => @lawrence, :blurb => "They're at it again")
+      @b = Factory.create(:battle)
       post :update, :id => @b.to_param, :battle => { :animal_1 => @emptiness }
     end
 
     it 'should render edit' do
       response.should render_template(:edit)
     end
+
   end
 
   describe 'get newest' do
 
     before(:each) do
-      @test_image = Rails.root + "spec/fixtures/images/seagull.jpg"
-      @file = Rack::Test::UploadedFile.new(@test_image, "image/jpeg")
-      @terrence = Animal.create!(:name => "Terrence", :image => @file)
-      @lawrence = Animal.create!(:name => "Lawrence", :image => @file)
-      @battle = Battle.create!(:animal_1 => @terrence, :animal_2 => @lawrence, :blurb => "They're at it again")
+      @battle = Factory.create(:battle)
       get :newest, :id => @battle.to_param
     end
 

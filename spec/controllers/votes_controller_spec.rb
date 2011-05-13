@@ -15,9 +15,13 @@ describe VotesController do
   describe 'post to create with valid vote attributes' do
 
     before(:each) do
-      post :create, :battle_id => valid_battle.to_param, :vote => { :animal_id => 
-      valid_animal_lokki.to_param, :user_id => valid_user_eilif.to_param,
-      :weight => 10 }
+      @battle = Factory.create(:battle)
+      @animal = Factory.create(:lokki)
+      @user = Factory.create(:user)
+      post :create, :battle_id => @battle.to_param, :vote => {
+        :animal_id => @animal.to_param, :user_id => @user.to_param,
+        :weight => 10
+      }
     end
 
     it 'should assign a vote to @vote' do
@@ -40,8 +44,11 @@ describe VotesController do
   describe 'post to create with invalid vote attributes' do
 
     before(:each) do
-      post :create, :battle_id => valid_battle.to_param, :vote => { :user_id => 
-      valid_user_eilif.to_param, :weight => 10 }
+      @battle = Factory.create(:battle)
+      @user = Factory.create(:user)
+      post :create, :battle_id => @battle.to_param, :vote => {
+        :user_id => @user.to_param, :weight => 10
+      }
     end
 
     it 'should not save vote' do

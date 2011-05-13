@@ -69,7 +69,7 @@ describe AnimalsController do
   describe "get edit" do
 
     before(:each) do
-      @a = Animal.create(:name => "Ashley", :image => File.new(Rails.root + 'spec/fixtures/images/seagull.jpg'))
+      @a = Factory.create(:koira)
       get :edit, :id => @a.to_param
     end
 
@@ -86,7 +86,7 @@ describe AnimalsController do
   describe "put to update with valid input" do
 
     before(:each) do
-      @a = Animal.create(:name => "Abstacia", :image => File.new(Rails.root + 'spec/fixtures/images/seagull.jpg'))
+      @a = Factory.create(:lokki)
       put :update, :id => @a.to_param, :animal => { :name => "Toquilda" }
     end
 
@@ -103,7 +103,7 @@ describe AnimalsController do
   describe "put to update with invalid input" do
 
     before(:each) do
-      @a = Animal.create(:name => "Abstacia", :image => File.new(Rails.root + 'spec/fixtures/images/seagull.jpg'))
+      @a = Factory.create(:susi)
       put :update, :id => @a.to_param, :animal => { :name => "" }
     end
 
@@ -116,7 +116,7 @@ describe AnimalsController do
   describe "get show" do
 
     before(:each) do
-      @a = Animal.create(:name => "Chorrecht", :image => File.new(Rails.root + 'spec/fixtures/images/seagull.jpg'))
+      @a = Factory.create(:susi)
       get :show, :id => @a.to_param
     end
 
@@ -133,7 +133,7 @@ describe AnimalsController do
   describe "delete to destroy" do
 
     before(:each) do
-      @a = Animal.create(:name => "Laguther", :image => File.new(Rails.root + 'spec/fixtures/images/seagull.jpg'))
+      @a = Factory.create(:koira)
       delete :destroy, :id => @a.to_param
     end
 
