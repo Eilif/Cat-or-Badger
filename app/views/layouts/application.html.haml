@@ -8,10 +8,13 @@
     = csrf_meta_tag
 
   %body
+    - [:notice, :error, :alert].each do |key|
+      - unless flash[key].blank?
+        %p { :class => "flash #{key}" }= flash[key] 
     #nav
       %ul
-        %li= link_to "sign up", root_path
-        %li= link_to "sign in", root_path
+        %li= link_to "sign up", new_user_registration_path
+        %li= link_to "sign in", user_session_path
         %li= link_to "Contender Stable", animals_path
         %li= link_to "Battle Record", battles_path
         %li= link_to "About", root_path

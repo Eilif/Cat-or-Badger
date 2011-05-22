@@ -21,6 +21,8 @@ gem 'aws-s3'
 
 gem 'factory_girl_rails', :group => [:development, :test]
 
+gem 'devise'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 

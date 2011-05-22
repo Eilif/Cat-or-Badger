@@ -1,4 +1,7 @@
-= form_for @user, :html => { :multipart => true } do |form|
+%h3 Join Cat or Badger!
+%p Registered user votes carry more weight.  Plus, track your voting record, suggest contenders, and experience happiness.
+
+= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |form|
 
   %p
     Upload an avatar image.
@@ -13,6 +16,9 @@
     = form.label :password
     = form.password_field :password
   %p
+    = form.label :password_confirmation
+    = form.password_field :password_confirmation
+  %p
     = form.label :signature_quote
     = form.text_field :signature_quote
   %p
@@ -20,3 +26,4 @@
     = form.text_area :bio
   %p
     = form.submit "create user profile"
+  = render :partial => "devise/shared/links"

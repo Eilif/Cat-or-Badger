@@ -5,6 +5,17 @@ CatOrBadger::Application.configure do
                                :s3_credentials => "#{Rails.root}/config/s3.yml",
                                :path => "/:style/:filename"}
 
+  #required by devise, change if move off of heroku.
+  config.action_mailer.default_url_options = {
+    :host => 'http://quiet-waterfall-413.heroku.com/'
+  }
+
+  # more devise instructions from tutorial
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default :charset => "utf-8"
+
   # The production environment is meant for finished, "live" apps.
   # Code is not reloaded between requests
   config.cache_classes = true
