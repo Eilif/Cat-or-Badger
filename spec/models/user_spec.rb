@@ -3,7 +3,7 @@ require 'spec_helper'
 describe User do
 
   it 'can have username' do
-    @user = User.create!(:username => "Dagon", :email => "ia_ia@cthulu.fhtagn")
+    @user = User.create!(:username => "Dagon", :email => "ia_ia@cthulu.fhtagn", :password => 'secret')
     @user.username.should eq("Dagon")
   end
 
@@ -28,12 +28,12 @@ describe User do
   end
 
   it 'can have email' do
-    @user = User.create!(:username => "sleepy", :email => "so_sleepy@need.caff")
+    @user = User.create!(:username => "sleepy", :email => "so_sleepy@need.caff", :password => 'secret')
     @user.email.should eq("so_sleepy@need.caff")
   end
 
   it 'must have email' do
-    @user = User.new(:username => "Dagon", :email => "")
+    @user = User.new(:username => "Dagon", :email => "", :password => 'secret')
     @user.should_not be_valid
     @user.should have(1).error_on(:email)
   end

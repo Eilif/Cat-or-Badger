@@ -7,8 +7,7 @@ describe Story do
       :image => File.new(Rails.root + 'spec/fixtures/images/seagull.jpg'))
     @arbitrary = Animal.create!(:name => "arbitrary", 
       :image => File.new(Rails.root + 'spec/fixtures/images/seagull.jpg'))
-    @user = User.create!(:username => "Sir_Chugsalot",
-      :email => "choochoo@rail.yard")
+    @user = Factory.create(:user)
     @battle = Battle.create!(:animal_1 => @squiggles, :animal_2 => @arbitrary)
     @story = Story.create!(:story_text => "Badger should win. That is all.",
       :title => "Thoughts on a Fight", :user => @user, :battle => @battle)

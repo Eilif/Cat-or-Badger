@@ -35,39 +35,30 @@ describe Battle do
 
   it 'can increment votes on animals' do
     b = Battle.create!(:animal_1 => @terrence, :animal_2 => @lawrence)
-    b.vote_for(@terrence.id)
-    b.votes.find(:all,
-      :conditions => [ 'animal_id = ?', @terrence.id ]).count.should eq(1)
+    b.votes.create!(:animal => @terrence)
+    b.tally_animal_1.should eq(1)
   end
 
   it 'can increment votes multiple times on multiple animals' do
     b = Battle.create!(:animal_1 => @terrence, :animal_2 => @lawrence)
-    5.times { b.vote_for(@terrence.id) }
-    3.times { b.vote_for(@lawrence.id) }
-    t = b.tally_animal_1
-    l = b.tally_animal_2
-    t.should eq(5)
-    l.should eq(3)
+    5.times { b.votes.create!(:animal => @terrence) }
+    3.times { b.votes.create!(:animal => @lawrence) }
+    b.animal_1.votes.count.should eq(5)
+    b.animal_2.votes.count.should eq(3)
   end
 
   it 'can declare a winner' do
     b = Battle.create!(:animal_1 => @terrence, :animal_2 => @lawrence)
-    5.times { b.vote_for(@terrence.id) }
-    3.times { b.vote_for(@lawrence.id) }
-    b.tally_animal_1
-    b.tally_animal_2
-    o = b.declare_outcome
-    o.should eq("Terrence wins!")
+    5.times { b.votes.create!(:animal => @terrence) }
+    3.times { b.votes.create!(:animal => @lawrence) }
+    b.declare_outcome.should eq("Terrence wins!")
   end
 
   it 'can declare a draw' do
     b = Battle.create!(:animal_1 => @terrence, :animal_2 => @lawrence)
-    5.times { b.vote_for(@terrence.id) }
-    5.times { b.vote_for(@lawrence.id) }
-    b.tally_animal_1
-    b.tally_animal_2
-    o = b.declare_outcome
-    o.should eq("Goddamn draw.")
+    5.times { b.votes.create!(:animal => @terrence) }
+    5.times { b.votes.create!(:animal => @lawrence) }
+    b.declare_outcome.should eq("Goddamn draw.")
   end
 
 end

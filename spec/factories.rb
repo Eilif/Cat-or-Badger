@@ -1,6 +1,10 @@
+Factory.sequence(:email) {|n| "email#{n}@example.com" }
+
 Factory.define :user do |u|
   u.username 'eilif'
-  u.email 'eilif@email.org'
+  u.email { Factory.next :email }
+  u.password 'secret'
+  u.password_confirmation 'secret'
   u.bio "Lots of text that I don't want to write"
   u.signature_quote "I feel empty."
   u.image { File.new(Rails.root + 'spec/fixtures/images/seagull.jpg') }
