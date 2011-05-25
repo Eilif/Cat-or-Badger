@@ -10,11 +10,12 @@
   %body
     - [:notice, :error, :alert].each do |key|
       - unless flash[key].blank?
-        %p { :class => "flash #{key}" }= flash[key] 
+        %p{ :class => "flash #{key}" }= flash[key] 
     #nav
       %ul
         - if current_user
           %li= link_to 'log out', destroy_user_session_path
+          %li Hi #{ current_user.username }
         - else
           %li= link_to "sign up", new_user_registration_path
           %li= link_to "sign in", user_session_path

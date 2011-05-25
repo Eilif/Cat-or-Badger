@@ -7,7 +7,7 @@ CatOrBadger::Application.configure do
 
   #required by devise, change if move off of heroku.
   config.action_mailer.default_url_options = {
-    :host => 'http://quiet-waterfall-413.heroku.com/'
+    :host => 'http://quiet-waterfall-413.heroku.com'
   }
 
   # more devise instructions from tutorial

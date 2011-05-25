@@ -5,7 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :trackable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :image, :bio, :signature_quote
+  attr_accessible :email, :password, :password_confirmation, :remember_me, 
+    :username, :image, :bio, :signature_quote
 
   has_attached_file :image, PAPERCLIP_STORAGE_OPTIONS.merge(
     :styles => { 
