@@ -1,0 +1,9 @@
+- form_for @story, :html => { :multipart => :true } do |form|
+  %p
+    = form.label :title
+    = form.text_field :title
+  %p
+    = form.label :story_text
+    = form.text_area :story_text
+  %p
+    = form.submit "create story"

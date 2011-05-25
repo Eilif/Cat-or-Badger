@@ -49,3 +49,6 @@
       %p= "#{ @battle.tally_animal_2 } votes"
   - if @battle != Battle.last
     %p= @battle.declare_outcome
+
+- if @battle == Battle.last
+  %p= link_to "Influence the outcome of this battle. Tell a story", new_story_path
